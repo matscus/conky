@@ -1,0 +1,90 @@
+# **********************************************************************
+# "CPU Panel (4-core)" theme for Conky by Tony George (teejee2008@gmail.com)
+#
+# Webpage: http://teejeetech.blogspot.in/
+# **********************************************************************
+
+background yes
+double_buffer yes
+
+alignment top_right
+
+border_width 1
+cpu_avg_samples 2
+default_color white
+default_outline_color white
+default_shade_color white
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+
+gap_x 30
+gap_y 40
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_colour 000000
+own_window_argb_visual no
+own_window_argb_value 0
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+minimum_size 300 230
+stippled_borders 0
+update_interval 1.0
+uppercase no
+use_spacer none
+
+show_graph_scale no
+show_graph_range no
+
+use_xft yes
+xftalpha 0.1
+xftfont Droid Sans:size=12
+color0 white
+color1 EAEAEA
+color2 FFA300
+color3 grey
+
+TEXT
+${font Arial:style=bold}${color #ff8c00}System Info ${hr 3}${font}${color}
+${color grey}${execi 1000 lsb_release -a | grep Description}
+${color grey}${execi 1000 lsb_release -a | grep Release}
+${color gray}Kernel:  ${color grey}${execi 1000 uname -r}
+${font Arial:style=bold}${color #ff8c00}CPU info ${hr 3}${font}${color}
+${color grey}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq}
+${color grey}Использовано: ${alignr}${color}$cpu%
+${color grey}Температура: ${alignr}${color}${acpitemp}°C
+##${color #71C4A9}${cpugraph}
+${color grey}${cpugraph cpu0 45,410}${voffset -19}
+${color grey}${cpugraph cpu1 45,205}${cpugraph cpu2 45,205}${voffset -19}
+${color grey}${cpugraph cpu3 45,205}${cpugraph cpu4 45,205}
+${font Arial:style=bold}${color #ff8c00}Память ${hr 3}${font}${color}
+${color grey}RAM: ${alignr}${color}$memperc% ${color} $mem / $memmax
+${color grey}Буфер: ${color}${buffers} ${color grey}${alignr} Кэш: ${color}${cached}
+$mem / $memmax - использовано RAM / всего RAM
+${font Arial:style=bold}${color #ff8c00}Процессы ${hr 3}${font}${color}
+${color grey}Name                                                        PID   CPU%  MEM%
+${color red} ${top name 1} ${alignr}         ${top pid 1}    ${top cpu 1}    ${top mem 1}
+${color grey} ${top name 2} ${color}${alignr}${top pid 2}    ${top cpu 2}    ${top mem 2}
+${color grey} ${top name 3} ${color}${alignr}${top pid 3}    ${top cpu 3}    ${top mem 3}
+${color grey} ${top name 4} ${color}${alignr}${top pid 4}    ${top cpu 4}    ${top mem 4}
+${color grey} ${top name 5} ${color}${alignr}${top pid 5}    ${top cpu 5}    ${top mem 5}
+##${color grey}Аптайм: ${alignr}${uptime}
+${font Arial:style=bold}${color #ff8c00}Network usage: ${hr 3}${font}${color}
+${color grey}Up   speed:       ${alignr}${upspeed wlp2s0}
+${color grey}Down speed:    ${alignr}${downspeed wlp2s0}
+${font Arial:style=bold}${color #ff8c00}Файловая система: ${hr 3}${font}${color}
+${font Arial:style=bold}${color #ff8c00}Device /dev/sda2 ${alignr}/
+${alignr}${color grey}Занято:   ${fs_used /}
+${alignr}${color grey}Всего:    ${fs_size /}
+${font Arial:style=bold}${color #ff8c00}Device /dev/sda3 ${alignr}/Home
+${alignr}${color grey}Занято:   ${fs_used /home}
+${alignr}${color grey}Всего:    ${fs_size /home}
+${color #ff8c00}Температура: ${color grey}${alignr}${execi 10 hddtemp /dev/sda}
